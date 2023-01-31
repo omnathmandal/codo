@@ -57,7 +57,7 @@ fn main() {
                     exit(1);
                 }
             }
-        }
+        },
         Commands::Done { index } => {
             let idx = match index {
                 Some(x) => x,
@@ -77,7 +77,7 @@ fn main() {
                     exit(1);
                 }
             }
-        }
+        },
         Commands::Remove { index } => {
             let idx = match index {
                 Some(x) => x,
@@ -97,7 +97,7 @@ fn main() {
                     exit(1);
                 }
             }
-        }
+        },
         Commands::Change { index, new } => {
             let idx = match index {
                 Some(x) => x,
@@ -125,7 +125,7 @@ fn main() {
                     exit(1);
                 }
             }
-        }
+        },
         Commands::Show => match todo.show() {
             Ok(_) => (),
             Err(_) => {

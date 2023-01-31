@@ -67,10 +67,6 @@ impl Crud {
 
     // remove a existing todo
     pub fn delete(&self, index: &u32) -> Result<()> {
-        if *index <= 0 {
-            eprintln!("{}", "Index is invalid!".bright_red());
-            std::process::exit(1);
-        }
         self.conn
             .execute("DELETE FROM todo WHERE id = ?1;", [index.to_string()])?;
         Ok(())
@@ -84,10 +80,6 @@ impl Crud {
 
     // Modify an existing todo
     pub fn modify(&self, index: &u32, new: &str) -> Result<()> {
-        if *index <= 0 {
-            eprintln!("{}", "Index is invalid!".bright_red());
-            std::process::exit(1);
-        }
         self.conn.execute(
             "UPDATE todo SET task = ?1 WHERE id = ?2;",
             &[new, &index.to_string()],
@@ -97,10 +89,6 @@ impl Crud {
 
     // Ticks off a todo
     pub fn done(&self, index: &u32) -> Result<()> {
-        if *index <= 0 {
-            eprintln!("{}", "Index is invalid!".bright_red());
-            std::process::exit(1);
-        }
         self.conn.execute(
             "UPDATE todo SET done = 1 WHERE id = ?1;",
             [index.to_string()],
@@ -110,39 +98,35 @@ impl Crud {
 
     // show incomplete task
     pub fn incomplete(&self) -> Result<()> {
-        let mut stmt = self.conn.prepare("SELECT id, task, done FROM todo")?;
+        let mut stmt = self.conn.prepare("SELECT id, task, done FROM todo WHERE done = 0;")?;
         let todo_iter = stmt.query_map([], |row| {
             Ok(Todo { id: row.get(0)?, task: row.get(1)?, done: row.get(2)? })
         })?;
 
         for todo in todo_iter {
             let t = todo.as_ref().unwrap();
-            if !t.done {
-                println!(
-                    "{}. {}",
-                    (t.id).to_string().green(),
-                    (t.task).to_string().green()
-                );
-            }
+            println!(
+                "{}. {}",
+                (t.id).to_string().green(),
+                (t.task).to_string().green()
+            );
         }
         Ok(())
     }
 
     pub fn complete(&self) -> Result<()> {
-        let mut stmt = self.conn.prepare("SELECT id, task, done FROM todo")?;
+        let mut stmt = self.conn.prepare("SELECT id, task, done FROM todo WHERE done = 1;")?;
         let todo_iter = stmt.query_map([], |row| {
             Ok(Todo { id: row.get(0)?, task: row.get(1)?, done: row.get(2)? })
         })?;
 
         for todo in todo_iter {
             let t = todo.as_ref().unwrap();
-            if t.done {
-                println!(
-                    "{}. {}",
-                    (t.id).to_string().red(),
-                    (t.task).to_string().red()
-                );
-            }
+            println!(
+                "{}. {}",
+                (t.id).to_string().red(),
+                (t.task).to_string().red()
+            );
         }
         Ok(())
     }
