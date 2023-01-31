@@ -1,7 +1,7 @@
 [package]
 name = "codo"
 version = "0.1.0"
-authors = ["GR33D"]
+authors = ["Omnath Mandal"]
 edition = "2021"
 description = "A simple todo cli application in rust."
 readme = "README.md"
