@@ -27,7 +27,9 @@ pub fn gateway() {
     };
     let mut comp = Vec::new();
     let mut notdone = Vec::new();
-    let mut todo = Crud { conn: connection, com: &mut comp, inc: &mut notdone };
+
+    let mut todo =
+        Crud { conn: connection, com: &mut comp, inc: &mut notdone };
 
     let cli = Cli::parse();
 

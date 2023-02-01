@@ -10,19 +10,18 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum Commands {
-
     /// Add a new todo
     #[command(arg_required_else_help = true)]
     Add { text: Option<String> },
-    
+
     /// Remove an existing todo
     #[command(arg_required_else_help = true)]
     Remove { index: Option<u32> },
-    
+
     /// Check off an existing todo
     #[command(arg_required_else_help = true)]
     Done { index: Option<u32> },
-    
+
     /// Modify an existing todo
     #[command(arg_required_else_help = true)]
     Change {
@@ -31,16 +30,16 @@ pub enum Commands {
         /// New todo text
         new: Option<String>,
     },
-    
+
     /// Clears all todos
     Clear,
-    
+
     /// Display all todos
     Show,
-    
+
     /// Display incomplete todos
     Inc,
-    
+
     /// Display completed todos
     Comp,
 }
