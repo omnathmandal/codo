@@ -2,7 +2,7 @@
 
 A simple todo cli application in rust.
 
-> note : while running the command given below make sure you are in the root directory of the project.
+> **Note** : while running the command given below make sure you are in the root directory of the project.
 
 ## Installing the application
 
