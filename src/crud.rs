@@ -1,7 +1,6 @@
 use colored::Colorize;
 use rusqlite::{Connection, Result};
 
-#[allow(dead_code)]
 #[derive(Debug)]
 struct Todo {
     id: u32,
