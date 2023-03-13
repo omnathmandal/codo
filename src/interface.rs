@@ -10,6 +10,8 @@ use crate::crud::Crud;
 
 pub fn gateway() {
     dotenv().ok();
+    
+    // db url
     let url = match env::var("DATABASE_URL") {
         Ok(s) => s,
         Err(e) => {
@@ -18,6 +20,7 @@ pub fn gateway() {
         }
     };
 
+    // db connection
     let connection = match Connection::open(url) {
         Ok(con) => con,
         Err(e) => {
